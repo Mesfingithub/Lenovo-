@@ -1,0 +1,22 @@
+#%RAML 1.0 Extension
+extends: craft-online-shopping.raml
+usage: only for admin user
+/product:
+  post:
+    description: to add new incoming products to the systm
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+                "msg": "created"
+              }
+      405:
+        body:
+          application/json:
+            example:
+              {
+                "msg": "Method not allowed"
+              }
+        

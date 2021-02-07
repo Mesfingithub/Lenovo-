@@ -1,0 +1,127 @@
+#%RAML 1.0
+title: Craft-online-shopping
+version: V1
+uses:
+  Lib: Library/library.raml
+documentation:
+  - !include /Document/documentations.raml
+/products:
+  get:
+    description: This is to return list of all products 
+    responses:
+      200:
+        body:
+          application/json:
+            type: Lib.PDType []
+            example: !include /Examples/Products.raml
+
+  is: 
+    Lib.SC404
+        
+  /{productID}:
+    get:
+      description: This is to return a spec product by its productid
+      responses:
+        200:
+          body:
+            application/json:
+              type: Lib.PDType 
+              example: !include /Examples/Product.raml           
+    is:
+      Lib.SC404  
+/users:
+  get:
+    description: This is to return list of all users 
+    responses:
+      202:
+        body:
+          application/json:
+            type: Lib.UDType []
+            example: !include /Examples/Users.raml               
+  is:
+    Lib.SC404     
+  post:
+    description: This is to create/add a new user in the database
+    responses:
+      201:
+        body:
+          application/json:
+            type: Lib.UDType
+            example: !include /Examples/User.raml
+              
+    is:
+       Lib.SC500    
+  /{userID}:
+    get:
+      description: return list of user by thier userid
+      responses:
+        200:
+          body:
+            application/json:
+              type: Lib.UDType
+              example: !include /Examples/User.raml             
+    is:
+      Lib.SC404    
+/orders:
+  get:
+    description: This is to return list of all orders 
+    responses:
+      200:
+        body:
+          application/json:
+            type: Lib.ODType []
+            example: !include /Examples/Orders.raml
+               
+  is:
+    Lib.SC404    
+  post:
+    description: create new order
+    responses:
+      201:
+        body:
+          application/json:
+            type: Lib.ODType
+            example: !include /Examples/Order.raml
+              
+    is:
+       Lib.SC500  
+
+  /{orderID}:
+             
+    is:
+      Lib.SC404 
+    type:
+      Lib.Collections:
+        exampleReference: |
+          {
+            "orderID": 101,
+            "userid": 001,
+            "name": "Tmobile" 
+          }   
+    
+/categories:
+  get:
+    description: This is to return list of products by thier categories
+    responses:
+      200:
+        body:
+          application/json:
+            type: Lib.CDType [] 
+            example: !include /Examples/Categories.raml
+              
+  is:
+    Lib.SC404    
+
+  /{CategoryID}: 
+      is:
+        Lib.SC404
+      type:
+       Lib.Collections:
+        exampleReference: |
+          {
+            "PcategoryID":11,
+            "name":"laptop"
+          }
+
+                      
+    
